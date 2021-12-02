@@ -1,0 +1,73 @@
+# import
+import dash
+from dash import dcc, html
+from dash.dependencies import Input, Output, State
+
+import plotly.express as ex
+import pandas as pd
+
+
+# pip3 install dash_bootstrap_components
+import dash_bootstrap_components as dbc
+
+
+# initialisation
+app = dash.Dash('', external_stylesheets=[dbc.themes.BOOTSTRAP])
+
+
+
+"""
+upload ->dcc.upload
+configure-> label, dropdownlist, button
+
+
+viaualise ->graph
+
+"""
+
+
+
+
+
+app.layout = html.Div(
+    [
+        dbc.Row(
+            [
+                dbc.Col(
+                    html.Div([
+                        dcc.Upload(
+                            id='upload-data',
+                            children=html.Div([
+                                'Drag and Drop or ',
+                                html.A('Select Files')
+                            ]),
+                            style={
+                                'width': '100%',
+                                'height': '60px',
+                                'lineHeight': '60px',
+                                'borderWidth': '1px',
+                                'borderStyle': 'dashed',
+                                'borderRadius': '5px',
+                                'textAlign': 'center',
+                                'margin': '10px'
+                            },
+                            # Allow multiple files to be uploaded
+                            multiple=True
+                        )
+                    ]), md=5, className='sidebar'
+                ),
+                dbc.Col(
+                    html.Div([
+                        dcc.Graph(id='visualisation', figure={})
+                    ]), md=7
+                ),
+            ]
+        )
+    ])
+
+
+
+
+
+# running
+app.run_server(debug=True)
